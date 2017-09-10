@@ -1,0 +1,37 @@
+﻿@model List<Model.Entity.Vendedor>
+@{
+    ViewBag.Title = "Lista de Vendedores";
+}
+
+<h2 class="text-center text-success">Listado de Vendedores</h2>
+<div class="well well-sm"><a class="btn btn-primary" href="~/Vendedor/Create">Nuevo</a></div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th colspan="3">Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objVendedor in Model)
+        {
+            <tr>
+                <td>@objVendedor.IdVendedor</td>
+                <td>@objVendedor.Nombre</td>
+                <td>@objVendedor.Appaterno @objVendedor.Apmaterno</td>
+                <td>@objVendedor.Dni</td>
+                <td>@objVendedor.Telefono</td>
+                <td><a class="btn btn-success" href="~/Vendedor/Find/@objVendedor.IdVendedor"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                <td><a class="btn btn-info" href="~/Vendedor/Update/@objVendedor.IdVendedor"><span class="fa fa-edit"></span></a></td>
+                <td><a class="btn btn-danger" href="~/Vendedor/Delete/@objVendedor.IdVendedor"><span class="fa fa-remove"></span></a></td>                
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+

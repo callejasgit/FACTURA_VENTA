@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Dao", "Model.Dao\Model.Dao.csproj", "{06A5D837-8721-4C48-AE68-8DD77AD29527}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Neg", "Model.Neg\Model.Neg.csproj", "{EDE4FE74-0735-4B5B-95BA-25A6121F4167}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Entity", "Model.Entity\Model.Entity.csproj", "{785645A7-F2F6-4B34-93A7-ABDBE078FFDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFacturaMvc", "WebFacturaMvc\WebFacturaMvc.csproj", "{438CDF7C-4DCB-44AB-9308-071C6FEF2D5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06A5D837-8721-4C48-AE68-8DD77AD29527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A5D837-8721-4C48-AE68-8DD77AD29527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A5D837-8721-4C48-AE68-8DD77AD29527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A5D837-8721-4C48-AE68-8DD77AD29527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDE4FE74-0735-4B5B-95BA-25A6121F4167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDE4FE74-0735-4B5B-95BA-25A6121F4167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDE4FE74-0735-4B5B-95BA-25A6121F4167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDE4FE74-0735-4B5B-95BA-25A6121F4167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785645A7-F2F6-4B34-93A7-ABDBE078FFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785645A7-F2F6-4B34-93A7-ABDBE078FFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785645A7-F2F6-4B34-93A7-ABDBE078FFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785645A7-F2F6-4B34-93A7-ABDBE078FFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438CDF7C-4DCB-44AB-9308-071C6FEF2D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438CDF7C-4DCB-44AB-9308-071C6FEF2D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438CDF7C-4DCB-44AB-9308-071C6FEF2D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438CDF7C-4DCB-44AB-9308-071C6FEF2D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

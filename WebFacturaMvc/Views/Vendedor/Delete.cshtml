@@ -1,0 +1,66 @@
+﻿
+@model Model.Entity.Vendedor
+@{
+    ViewBag.Title = "Formulario Eliminar";
+}
+<div class="well well-sm text-primary text-center">
+    @ViewBag.MensajeInicialEliminar
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdVendedor, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.IdVendedor, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Appaterno, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Appaterno, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Apmaterno, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Apmaterno, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dni, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Dni, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-actions col-md-offset-2">
+                <input class="btn btn-primary" type="submit" name="btnguardar" value="Eliminar" />|
+                @Html.ActionLink("Regresar al Listado", "Index")
+            </div>
+        </fieldset>
+    </div>
+
+}
+
+<div class="text-primary text-success text-center">
+    @ViewBag.MensajeExito;
+</div>
+<div class="text-primary text-danger text-center">
+    @ViewBag.MensajeError;
+</div>

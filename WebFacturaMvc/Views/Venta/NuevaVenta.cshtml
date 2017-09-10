@@ -1,0 +1,279 @@
+﻿@using Model.Entity
+@model List<Producto>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Js/alertify.min.js"></script>
+<link href="~/Css/alertify.core.css" rel="stylesheet" />
+<link href="~/Css/alertify.default.css" rel="stylesheet" />
+@*<meta http-equiv="refresh" content="6">*@
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        
+        $("a[rel='pop-up']").click(function () {
+            var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
+            nueva = window.open(this.href, 'popup', caracteristicas);            
+
+            
+            return false; 
+        });
+        //botones
+        $("#finalizar").click(function () {
+            //alertify.alert("Boton Iniciado");            
+            //console.info('hola');
+            var i = 0;
+            var envio = "{Fecha:'" + $("#id_fecha").val() + "',ModoPago:'" + $("#modoPago").val() + "',IdCliente:'" + $("#codigoCliente").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
+            $("#detalle tbody tr").each(function (index) {
+                if (i == 0) {
+                    envio += "ListadoDetalle:[{IdProducto:'" + $(this).find('td').eq(0).text() +
+                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',Descuento:'" + $(this).find('td').eq(4).text() +
+                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}";
+                } else {
+                    envio += ",{IdProducto:'" + $(this).find('td').eq(0).text() +
+                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',Descuento:'" + $(this).find('td').eq(4).text() +
+                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}"
+                }
+                i = 1;
+            });
+            envio += "]}";
+            
+            var json = eval("(" + envio + ')');
+
+            //alertify.alert("INGRESE DATOS");
+            console.info(json);
+            
+            $.ajax({
+                url: "GuardarVenta",
+                data: JSON.stringify(json),
+                type: "POST",
+                async: false,//this makes the ajax-call blocking
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                success: function (response) {                  
+                    alertify.alert(response);                    
+                    valid = response.valid;
+                },
+                error: function (error) {
+                    alertify.alert(error);
+                    
+                }
+            }); 
+        });
+        
+    });
+    //variables
+    var total=0;
+    var valor=0;
+    var subtotal=0;
+    function obtenerCliente(Cliente) {
+
+        var watchclose = setInterval(function () {
+            $("#txtnombre").val(Cliente.DatosPersonales);
+            $("#idCliente").val(Cliente.Identificacion);
+            $("#codigoCliente").val(Cliente.Codigo);
+
+        });
+    }
+    
+    function fn_agregar() {
+        
+        cadena="<tr>"
+        cadena=cadena+"<td>"+$("#idproducto").val()+"</td>";
+        cadena=cadena+"<td>"+$("#nombreproducto").val()+"</td>";
+        cadena=cadena+"<td>"+$("#cantidad").val()+"</td>";
+        cadena = cadena + "<td>" + $("#precio").val() + "</td>";
+        cadena = cadena + "<td>" + $("#descuento").val() + "</td>";
+
+        var y = 0;
+        var x = 0;
+        var des = 0;
+        y = $("#cantidad").val();
+        x = $("#precio").val();
+        des = $("#descuento").val();
+        subtotal=(x*y)-des;
+        cadena = cadena + "<td>" + subtotal + "</td>"
+        cadena=cadena+"<td><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
+        $("#detalle tbody").append(cadena);
+        sumar();
+        fn_dar_eliminar();
+        limpiarCliente();
+        limpiar();
+    };
+    function limpiar() {
+        $("#nombreproducto").val("");
+        $("#idproducto").val("");
+        $("#precio").val(""); 
+        $("#ListaProducto").val("");
+        $("#cantidad").val("");
+        $("#descuento").val("");
+    }
+    function limpiarCliente() {
+        $("tbody tr #txtnombre").val('');
+        $("tbody tr #idCliente").val('');
+        $("tbody tr #codigoCliente").val('');
+    }
+    function limpiarDetalle() {
+        $("#detalle tbody tr").val("");
+    }
+    function sumar() {
+        total=total+subtotal;
+        console.info(total);
+        $("#TotalaPagar").val(total);
+
+    }
+    function restar() {
+        total=total-valor;
+        $("#TotalaPagar").val(total);
+    }
+    function fn_dar_eliminar(){
+        $("a.elimina").click(function () {
+            valor = $(this).parents("tr").find("td").eq(5).html();
+
+            $(this).parents("tr").fadeOut("normal",function(){
+                $(this).remove();
+                restar();
+            });
+        });
+    };
+
+
+</script>
+
+<a style="float:right;" class="btn btn-success" href="~/Venta/VentaFactura" target="_blank">Mas Facturas</a>
+    
+<a style="float:right;" class="btn btn-success" href="~/Venta/reporteActual" target="_blank">Imprimir Factura</a>
+    
+<table id="encabezado" class="table">
+    <thead>
+        <tr style="font-size:20px;">
+            <th>Id Venta <input style="color:red; font-size:12px;" class="form-control" type="text" id="id_venta" readonly /></th>
+            <th>
+                Fecha
+                <input style="color:red;font-size:20px;" class="form-control" type="text" id="id_fecha" readonly value="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day @DateTime.Now.Hour:@DateTime.Now.Minute:@DateTime.Now.Second" />
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="font-size:20px;">
+            <td>
+                Detalles del Cliente
+                <a href="~/Venta/ObtenerClientes" rel="pop-up">
+                    <input class="btn btn-warning btn-lg col-md-12" type="button" name="enlace_cliente" value="Obtener Cliente" />
+                </a>
+            </td>
+            <td>
+                Modo de Pago
+                <div class="col-md-12 dropdown">
+                    @Html.DropDownList("modoPago", ViewBag.ListaModoPago as SelectList, "Seleccione Modo Pago", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+            </td>
+        </tr>
+        <tr style="font-size:20px;">
+
+            <td>Nombre Cliente <input style="font-size:20px; font-weight:700;" class="form-control" type="text" id="txtnombre" readonly required /></td>
+            <td>
+                DNI
+                <input type="hidden" id="codigoCliente">
+                <input style="font-size:20px; font-weight:700;" class="form-control" type="text" id="idCliente" readonly required />               
+            </td>
+        </tr>
+        <tr style="font-size:20px;">
+            <td style="float:right; vertical-align:middle;">Detalles del Producto</td>
+            <td>
+                @*<a class="btn_productos btn btn-primary" href="#">
+                       Obtener Productos
+                    </a>*@
+
+                <div class="form-group col-md-12">
+                    <div class="col-md-9 dropdown">
+                        @Html.DropDownList("ListaProducto", ViewBag.ListaProducto as SelectList, "Seleccione un Producto", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-warning btn-lg" name="btnproductos" id="btnproductos">Seleccionar</button>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<form action="javascript:fn_agregar()" ; method="post" id="frm_usu" class="form-horizontal">
+    <table class="table">
+        <tr style="font-size:20px;">
+            <td>Nombre del Producto <input style="font-size:20px; font-weight:700;" class="form-control" type="text" id="nombreproducto" readonly required /></td>
+            <td>Id <input style="font-size:20px; font-weight:700;" type="text" id="idproducto" class="form-control" readonly required /></td>
+            <td>Precio <input style="font-size:20px; font-weight:700;" type="text" id="precio" class="form-control" readonly required /></td>
+            <td>Descuento <input style="font-size:20px; font-weight:700;" class="form-control" type="number" id="descuento" value="0" onfocus="this.value = '';" required /></td>
+            <td>Cantidad <input style="font-size:20px; font-weight:700;" class="form-control" type="number" id="cantidad" value="Ingrese Cantidad" onfocus="this.value = '';" required /></td>
+            <td colspan="2"><input class="btn btn-primary btn-lg" type="submit" name="agregar" id="agregar" value="Agregar" /></td>
+        </tr>
+    </table>
+</form>
+<table id="detalle" class="lista table" border="1">
+    <thead style="font-size:18px;">
+        <tr class="bg-success">
+            <td>Detalle de la Compra</td>
+        </tr>
+        <tr class="bg-danger">
+            <th>Id</th>
+            <th>Descripcion del Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+
+</table>
+<table class="table">
+    <tr>
+        <td style="float:right;font-size:20px;">Total a Pagar</td>
+        <th></th>
+        <td><input style="font-size:20px; font-weight:700;" class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
+    </tr>
+</table>
+<input class="btn btn-success btn-lg" type="button" id="finalizar" value="Guardar Venta" />
+<input class="btn btn-success btn-lg" type="button" id="txtnueva" value="Nueva" />
+
+
+<script>
+    $(document).ready(function () {
+        $("#txtnueva").click(function () {
+            $.ajax({
+                success: function (res) {
+                    //alertify.alert("exito");
+                    window.location.reload().ajax();
+                }
+            });            
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#btnproductos").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "Seleccionar",
+                data: { idProducto: $("#ListaProducto").val() },
+                success: function (mensaje) {
+                    //alert(mensaje);
+                    //$("#idproducto").val(mensaje.Nombre);
+                    $(mensaje).each(function (index, item) {
+                        //recibir datos json
+                        $("#nombreproducto").val(item.Nombre),
+                        $("#idproducto").val(item.IdProducto),
+                        $("#precio").val(item.PrecioUnitario)
+                    });
+                }
+            });
+        });
+    });
+
+</script>

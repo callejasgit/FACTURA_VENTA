@@ -1,0 +1,32 @@
+﻿@model List<Model.Entity.ModoPago>
+@{
+    ViewBag.Title = "Lista de Categoria";
+}
+
+<h2 class="text-center text-success">Listado de Categorias</h2>
+<div class="well well-sm"><a class="btn btn-primary" href="~/ModoPago/Create">Nuevo</a></div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th>Número Pago</th>
+            <th>Nombre</th>
+            <th>Otros</th>
+            <th colspan="3">Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objCategoria in Model)
+        {
+            <tr>
+                <td>@objCategoria.NumPago</td>
+                <td>@objCategoria.Nombre</td>
+                <td>@objCategoria.Otros</td>
+                <td><a class="btn btn-success" href="~/ModoPago/Find/@objCategoria.NumPago"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                <td><a class="btn btn-info" href="~/ModoPago/Update/@objCategoria.NumPago"><span class="fa fa-edit"></span></a></td>
+                <td><a class="btn btn-danger" href="~/ModoPago/Delete/@objCategoria.NumPago"><span class="fa fa-book"></span></a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+

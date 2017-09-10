@@ -1,0 +1,64 @@
+﻿@model Model.Entity.Producto
+
+@{
+    ViewBag.Title = "Nuevo Producto";
+    
+}
+
+<div class="well well-sm text-primary text-center">
+    @ViewBag.MensajeInicio
+</div>
+
+@*@Html.EditorForModel()*@
+@{
+    Html.EnableClientValidation(false);
+}
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdProducto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.IdProducto, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.PrecioUnitario, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.PrecioUnitario, new { htmlAttributes = new { @class = "form-control" } })
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6 dropdown">
+                    @*  @Html.DropDownListFor(model => model.Categoria, new SelectList(Model.Categoria,"idCategoria"), new { htmlAttributes = new { @class = "form-control" } })*@
+                    @*@Html.DropDownList("ListaCategorias", ViewBag.ListaCategorias as SelectList, "Seleccione una Categoria", htmlAttributes: new { @class= "form-control" })*@
+                    @Html.DropDownListFor(model => model.Categoria, ViewBag.ListaCategorias as SelectList, "Seleccione una Categoria", htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="form-actions col-md-offset-2">
+            <input class="btn btn-primary" type="submit" name="btnguardar" value="Guardar" />|
+            @Html.ActionLink("Regresar al Listado", "Index")
+        </div>
+    </div>
+
+}
+<div class="text-primary text-success text-center">
+    @ViewBag.MensajeExito;
+</div>
+<div class="text-primary text-danger text-center">
+    @ViewBag.MensajeError;
+</div>
+
+

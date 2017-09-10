@@ -1,0 +1,39 @@
+﻿@model List<Model.Entity.Cliente>
+@{
+    ViewBag.Title = "Lista de Clientes";
+}
+<a href="~/Reportes/wfReport.aspx">Reporte</a>
+<h2 class="text-center text-success">Listado de Clientes</h2>
+<div class="well well-sm"><a class="btn btn-primary" href="~/Cliente/Create">Nuevo</a></div>
+<table class="table table-hover table-striped">
+    <thead >
+        <tr class="bg-primary">
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th>Direccion</th>
+            <th>Teléfono</th>
+            <th colspan="3">Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objCliente in Model)
+        {
+            <tr>
+
+                <td>@objCliente.IdCliente</td>
+                <td>@objCliente.Nombre</td>
+                <td>@objCliente.Appaterno @objCliente.Apmaterno</td>
+                <td>@objCliente.Dni</td>
+                <td>@objCliente.Direccion</td>
+                <td>@objCliente.Telefono</td>
+                <td><a class="btn btn-success" href="~/Cliente/Find/@objCliente.IdCliente"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                <td><a class="btn btn-info" href="~/Cliente/Update/@objCliente.IdCliente"><span class="fa fa-edit"></span></a></td>
+                 <td><a class="btn btn-danger" href="~/Cliente/Eliminar/@objCliente.IdCliente"><span class="fa fa-book"></span></a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+

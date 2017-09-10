@@ -1,0 +1,63 @@
+﻿@model List<Model.Entity.Producto>
+@{
+    ViewBag.Title = "BuscarPorCodigo";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">Buscar Clientes en el Sistema</div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+            {
+            <div class="form-horizontal">
+                <h2 style="text-align:center; font-family:Arial; font-weight:700;">Buscar Cliente por:</h2>
+                <fieldset>
+                    <div class="form-group">
+                        @Html.Label("Categorias", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 dropdown">
+                            @*@Html.DropDownList("categorias", (IEnumerable<SelectListItem>)ViewBag.ListaCategorias, "Seleccione una Categoria")*@
+                            @*  @Html.DropDownListFor(model => model.Categoria, new SelectList(Model.Categoria,"idCategoria"), new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.DropDownList("ListaCategorias", ViewBag.ListaCategorias as SelectList, "Seleccione una Categoria", htmlAttributes: new { @class = "form-control" })
+                            @* @Html.DropDownListFor(model => model.Categoria, ViewBag.ListaCategorias as SelectList, "Seleccione una Categoria", htmlAttributes: new { @class = "form-control" })*@
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-actions">
+                <input class="btn btn-primary" type="submit" value="Buscar" />
+            </div>
+
+        }
+    </div>
+</div>
+
+<div class="text-primary text-danger text-center">
+    @ViewBag.MensajeError;
+</div>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr class="bg-primary">
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Categoria</th>
+            <th colspan="3">Operaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objProducto in Model)
+        {
+            <tr>
+                <td>@objProducto.IdProducto</td>
+                <td>@objProducto.Nombre</td>
+                <td>@objProducto.PrecioUnitario</td>
+                <td>@objProducto.Categoria</td>
+                <td><a class="btn btn-success" href="~/Producto/Find/@objProducto.IdProducto"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                <td><a class="btn btn-info" href="~/Producto/Update/@objProducto.IdProducto"><span class="fa fa-edit"></span></a></td>
+                <td><a class="btn btn-danger" href="~/Producto/Delete/@objProducto.IdProducto"><span class="fa fa-remove"></span></a></td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+

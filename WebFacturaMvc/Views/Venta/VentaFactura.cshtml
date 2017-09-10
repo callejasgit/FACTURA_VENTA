@@ -1,0 +1,38 @@
+﻿
+@model List<Model.Entity.Venta>
+
+@{
+    ViewBag.Title = "ReporteVentas";
+}
+<h2>Reporte de Ventas</h2>
+
+<table class="table">
+    <thead>
+        <tr class="bg-primary">
+            <th>Id Venta</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Vendedor</th>
+            <th>IVA</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var objVenta in Model)
+            {
+            <tr>
+                <td>@objVenta.IdVenta</td>
+                <td>@objVenta.IdCliente</td>
+                <td>@objVenta.Fecha</td>
+                <td>@objVenta.IdVendedor</td>
+                <td>@objVenta.Iva</td>
+                <td>@objVenta.Total</td>
+
+                <td><a class="btn btn-success" href="~/Reportes/frmReporteFactura.aspx?IdVenta=@objVenta.IdVenta"><span class="glyphicon glyphicon-eye-open"></span>|Imprimir Factura</a></td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>

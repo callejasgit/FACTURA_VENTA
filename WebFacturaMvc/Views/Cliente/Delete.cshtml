@@ -1,0 +1,55 @@
+﻿@model Model.Entity.Cliente
+@{
+    ViewBag.Title = Model.Nombre + ' ' + Model.Appaterno;
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/">Clientes</a></li>
+    <li class="active">@(Model.Nombre + ' ' + Model.Appaterno)</li>
+
+</ol>
+<div class="well well-sm text-primary text-center">
+    @ViewBag.MensajeInicialEliminar
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Informacion Personal</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Código</dt>
+            <dd>@Model.IdCliente</dd>
+
+            <dt>Nombre</dt>
+            <dd>@Model.Nombre</dd>
+
+            <dt>Apellidos</dt>
+            <dd>@(Model.Appaterno + ' ' + Model.Apmaterno)</dd>
+
+            <dt>DNI</dt>
+            <dd>@Model.Dni</dd>
+
+            <dt>Direccion</dt>
+            <dd>@Model.Direccion</dd>
+
+            <dt>Teléfono</dt>
+            <dd>@Model.Telefono</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @Html.ActionLink("Regresar al Listado", "Index")
+        </div>
+    }
+</div>
+
+
+<div class="text-primary text-success text-center">
+    @ViewBag.MensajeExito;
+</div>
+<div class="text-primary text-danger text-center">
+    @ViewBag.MensajeError;
+</div>

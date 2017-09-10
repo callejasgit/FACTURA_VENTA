@@ -1,0 +1,29 @@
+﻿@model List<Model.Entity.DetalleVenta>
+@{
+    ViewBag.Title = "DetallesVenta";
+}
+
+<table class="table">
+    <tr class="bg-primary">
+        <th>Id Detalle</th>
+        <th>Numero Factura</th>
+        <th>Id Venta</th>
+        <th>Sub Total</th>
+        <th>Id Producto</th>
+        <th>Descuento</th>
+        <th>Cantidad</th>
+    </tr>
+    @foreach (var objDetalle in Model)
+    {
+        <tr>
+            <th>@objDetalle.IdDetalleVenta</th>
+            <th>@objDetalle.NumFacura</th>
+            <th>@objDetalle.IdVenta</th>
+            <th>@objDetalle.SubTotal</th>
+            <th>@objDetalle.IdProducto</th>
+            <th>@objDetalle.Descuento</th>
+            <th>@objDetalle.Cantidad</th>
+        </tr>
+    }
+</table>
+

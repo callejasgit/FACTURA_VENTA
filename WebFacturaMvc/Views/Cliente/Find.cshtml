@@ -1,0 +1,50 @@
+﻿@model Model.Entity.Cliente
+@{
+    ViewBag.Title = Model.Nombre+' '+Model.Appaterno;
+}
+
+<ol class="breadcrumb">
+    <li><a href="~/">Clientes</a></li>
+    <li class="active">@(Model.Nombre + ' ' + Model.Appaterno)</li>
+
+</ol>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Informacion Personal</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>Código</dt>
+            <dd>@Model.IdCliente</dd>
+
+            <dt>Nombre</dt>
+            <dd>@Model.Nombre</dd>
+
+            <dt>Apellidos</dt>
+            <dd>@(Model.Appaterno+' '+Model.Apmaterno)</dd>
+
+            <dt>DNI</dt>
+            <dd>@Model.Dni</dd>
+
+            <dt>Direccion</dt>
+            <dd>@Model.Direccion</dd>
+
+            <dt>Teléfono</dt>
+            <dd>@Model.Telefono</dd>
+        </dl>
+    </div>
+    <div class="form-actions">
+        |@Html.ActionLink("Regresar al Listado", "Index")
+    </div>
+</div>
+@*<div class="panel panel-default">
+    <div class="panel-heading">Asignaturas Seleccionadas</div>
+    <div class="panel-body">
+        <ul class="list-group">
+            
+            @foreach (var c in Model.Ventas)
+            {
+                <li class="list-group-item">@c.IdVenta</li>
+            }
+        </ul>
+    </div>
+</div>*@
